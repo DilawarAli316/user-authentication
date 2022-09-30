@@ -48,7 +48,7 @@ if (local) {
 }
 
 app.get("/", (req, res) => {
-  res.send("Child Safety Server is Running");
+  res.send("Server is Running");
 });
 
 var httpsServer = https.createServer(credentials, app);
