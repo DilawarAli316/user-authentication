@@ -13,6 +13,7 @@ const protect = async (req, res, next) => {
     }
 
     const token = req.get("Authorization").split(" ")[1];
+    console.log(token);
     let decodedToken = "";
     try {
       decodedToken = jwt.verify(token, process.env.JWT_SECRET);

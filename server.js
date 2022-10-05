@@ -5,15 +5,13 @@ import dotenv from "dotenv";
 import logger from "morgan";
 import https from "https";
 import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import connectDB from "./config/db.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import fs from "fs";
 
-const port = process.env.PORT || 2368;
-const app = express();
 dotenv.config();
-
-connectDB();
+const app = express();
 
 app.use(cors());
 app.options("*", cors());
@@ -21,8 +19,11 @@ app.use(express.json());
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+connectDB();
+const port = process.env.PORT || 2368;
 
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(__dirname + "/uploads"));

@@ -46,16 +46,12 @@ const registerUser = asyncHandler(async (req, res) => {
 // @access Private
 
 const getUserProfile = async (req, res) => {
-  console.log(req.body, req.id);
+  // console.log(req.body, req.id);
   try {
-    const user = await User.findById(req.id).lean().select("-password");
+    let docs = await User.find();
+    console.log(docs.length);
 
-    if (user) {
-      res.json(user);
-    } else {
-      res.status(404);
-      throw new Error("User not found");
-    }
+    res.json(docs);
   } catch (err) {
     res.status(401).json({ message: err.message });
   }
